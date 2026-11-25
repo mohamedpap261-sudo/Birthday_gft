@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#171326">
+<title>هدية صغيرة لرقوشتي</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; overflow: hidden;
+    display: grid; place-items: center;
+    font-family: "Tahoma", "Arial", sans-serif;
+    color: #fff4f8;
+    background:
+      radial-gradient(circle at 18% 20%, rgba(164,105,165,.22), transparent 32%),
+      radial-gradient(circle at 85% 78%, rgba(218,135,166,.16), transparent 34%),
+      linear-gradient(145deg, #100e1b, #21172b 55%, #171326);
+  }
+  .stars, .hearts { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
+  .star {
+    position: absolute; width: 3px; height: 3px; border-radius: 50%;
+    background: #fff; opacity: .55; animation: twinkle 3s ease-in-out infinite;
+  }
+  @keyframes twinkle { 0%,100% {opacity:.2; transform:scale(.7)} 50% {opacity:.9; transform:scale(1.35)} }
+  .wrap { width: min(92vw, 540px); position: relative; z-index: 2; }
+  .card {
+    text-align: center; padding: 42px 27px 36px;
+    border: 1px solid rgba(255,220,235,.2);
+    border-radius: 28px;
+    background: linear-gradient(150deg, rgba(255,255,255,.105), rgba(255,255,255,.035));
+    box-shadow: 0 24px 80px rgba(0,0,0,.35), inset 0 1px rgba(255,255,255,.12);
+    backdrop-filter: blur(12px);
+  }
+  .tiny { color: #e8b9d0; letter-spacing: 2px; font-size: 12px; margin-bottom: 18px; }
+  .icon { font-size: 42px; margin-bottom: 16px; filter: drop-shadow(0 0 18px rgba(255,150,190,.35)); }
+  h1 { font-size: clamp(27px, 7vw, 39px); margin: 0 0 14px; line-height: 1.5; font-weight: 700; }
+  p { color: #e8dce5; line-height: 2; font-size: 16px; margin: 0 auto 24px; }
+  button {
+    border: 0; border-radius: 999px; padding: 14px 30px; cursor: pointer;
+    color: #2a1828; font-size: 16px; font-weight: bold;
+    background: linear-gradient(100deg, #f6c7d8, #e9a8c5);
+    box-shadow: 0 8px 28px rgba(230,155,190,.22);
+    transition: transform .2s, box-shadow .2s;
+  }
+  button:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(230,155,190,.35); }
+  .hidden { display: none; }
+  .message { animation: appear 1.2s ease both; }
+  @keyframes appear { from {opacity:0; transform:translateY(15px)} to {opacity:1; transform:translateY(0)} }
+  .divider { width: 70px; height: 1px; background: #d99ab8; margin: 22px auto; opacity: .7; }
+  .footer { color: #bba9bb; font-size: 12px; margin-top: 24px; }
+  .floating-heart {
+    position: absolute; bottom: -30px; color: rgba(246,183,211,.7);
+    animation: floatUp 7s linear forwards; font-size: 17px;
+  }
+  @keyframes floatUp { to { transform: translateY(-110vh) rotate(25deg); opacity: 0; } }
+  @media (max-width: 420px) { .card { padding: 34px 20px 30px; } p {font-size:15px;} }
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<div class="hearts" id="hearts"></div>
+<main class="wrap">
+  <section class="card" id="intro">
+    <div class="tiny">A LITTLE SOMETHING FOR YOU</div>
+    <div class="icon">✦</div>
+    <h1>في حاجة حلوة مستنياكي...</h1>
+    <p>خدي لحظة كده، وافتحي هديتك الصغيرة.</p>
+    <button id="openBtn">افتح هديتك</button>
+    <div class="footer">صُنعت خصيصًا لأجلِك</div>
+  </section>
+
+  <section class="card hidden" id="gift">
+    <div class="message">
+      <div class="tiny">HAPPY BIRTHDAY</div>
+      <div class="icon">♡</div>
+      <h1>كل سنة وأنتِ طيبه<br>يا رقوشتي</h1>
+      <div class="divider"></div>
+      <p>وعقبال سنين كتير مليانة سعادة ونجاح، وضحكة مبتفارقكيش.</p>
+      <p>أتمنى تكون سنتِك الجديدة أحلى من كل اللي فات، وتحققي فيها كل اللي بتتمنيه. وتفضلي دايمًا بخير، ومبسوطه، وحواليكي ناس بتحبِك بجد.</p>
+      <div class="icon" style="font-size:25px;margin:8px 0 0">♡</div>
+      <div class="footer"> يوم ميلاد سعيد، وتفضل أيامِك كلها حلوة زيك.</div>
+    </div>
+  </section>
+</main>
+<script>
+  const stars = document.getElementById('stars');
+  for (let i = 0; i < 55; i++) {
+    const s = document.createElement('span');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.animationDelay = Math.random() * 3 + 's';
+    s.style.opacity = (Math.random() * .55 + .2).toFixed(2);
+    stars.appendChild(s);
+  }
+  function addHeart() {
+    const h = document.createElement('span');
+    h.className = 'floating-heart';
+    h.textContent = Math.random() > .5 ? '♡' : '✦';
+    h.style.left = Math.random() * 100 + '%';
+    h.style.animationDuration = (6 + Math.random() * 4) + 's';
+    h.style.fontSize = (13 + Math.random() * 15) + 'px';
+    document.getElementById('hearts').appendChild(h);
+    setTimeout(() => h.remove(), 10000);
+  }
+  setInterval(addHeart, 850);
+  document.getElementById('openBtn').addEventListener('click', () => {
+    document.getElementById('intro').classList.add('hidden');
+    document.getElementById('gift').classList.remove('hidden');
+    for (let i = 0; i < 18; i++) setTimeout(addHeart, i * 100);
+  });
+</script>
+</body>
+</html>
